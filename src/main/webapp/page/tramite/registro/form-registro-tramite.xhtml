@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>
+        <ui:composition>
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Tramite <small>Registro Tramite</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li class="active">Registro Tramite</li>
+                </ol>
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <h:form  id="formsolicitud" enctype="multipart/form-data">
+                    <div class="box box-danger">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Formulario de Registro de Trámite</h3>
+
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool"
+                                        data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-box-tool"
+                                        data-widget="remove">
+                                    <i class="fa fa-remove"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+
+                            <p:growl id="msj" autoUpdate="true" life="5000"/>
+                            <div class="box-body">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="txt-remitente">Codigo Trámite</label>
+                                        <p:inputText id="txt-codigo-tramite"
+                                                     styleClass="form-control"
+                                                     readonly="true"
+                                                     value="#{tramiteBean.tramite.codTramite}"/>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txt-remitente">Remitente</label>
+                                        <p:inputText id="txt-remitente"
+                                                     styleClass="form-control"
+                                                     required="true"
+                                                     requiredMessage="Debe de ingresar el nombre del remitente."
+                                                     value="#{tramiteBean.tramite.nomRemitente}"
+                                                     placeholder="Ingrese el nombre del remitente" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="txt-destinatario">Destinatario</label>
+                                        <p:inputText id="txt-destinatario"
+                                                     value="#{tramiteBean.tramite.nomDestinatario}"
+                                                     required="true"
+                                                     requiredMessage="Debe de ingresar el nombre del destinatario."
+                                                     styleClass="form-control"
+                                                     placeholder="Ingrese nombre del destinatario" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txt-asunto">Asunto</label>
+                                        <p:inputText id="txt-asunto" 
+                                                     value="#{tramiteBean.tramite.desAsunto}"
+                                                     required="true"
+                                                     requiredMessage="Debe de ingresar el asunto del trámite."
+                                                     styleClass="form-control"
+                                                     placeholder="Ingrese el asunto del trámite" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Adjuntar Archivos del Trámite</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="combo-tipo-documento">Tipo Documento</label>
+                                    <h:selectOneMenu   id="combo-tipo-documento"
+                                                       value="#{tramiteBean.tramite.documentoAdjunto.codTipoDocumento}"
+                                                       styleClass="form-control">
+                                        <f:selectItem  itemLabel="--Seleccione Tipo de Documento a subir--"
+                                                       noSelectionOption="true"  />
+                                        <f:selectItems value="#{tramiteBean.listaTipoDocumentos}"
+                                                       var="doc"
+                                                       itemLabel="#{doc.nomCodificador}"
+                                                       itemValue="#{doc.codCodificador}"/>
+                                        <p:ajax/>
+                                    </h:selectOneMenu>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="txt-nombre-archivo">Nombre del Archivo</label>
+                                    <p:inputText id="txt-nombre-archivo" 
+                                                 value="#{tramiteBean.tramite.documentoAdjunto.nomDocumento}"
+                                                 required="true"
+                                                 placeholder="(Ejemplo: SOL-001/2018)"
+                                                 requiredMessage="Debe de ingresar el nombre del archivo a subir."
+                                                 styleClass="form-control">
+                                        <p:ajax/>
+                                    </p:inputText>
+                                </div>
+
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="fileArchivosAdjuntos">Archivos adjuntos</label>
+                                    <p:fileUpload fileUploadListener="#{tramiteBean.subirArchivo}" 
+                                                  id="fileArchivosAdjuntos"
+                                                  mode="advanced"
+                                                  label="Buscar"
+                                                  uploadLabel="Subir"
+                                                  cancelLabel="Cancelar"
+                                                  dragDropSupport="true"
+                                                  sizeLimit="250000000" 
+                                                  fileLimit="3" 
+                                                  update="msj"
+                                                  allowTypes="/(\.|\/)(gif|jpe?g|png|pdf)$/" />
+
+                                </div> 
+                            </div>
+                            <div class="box-footer">
+                                <p:commandButton  id="btn-registrar"
+                                                  update="@form"
+                                                  actionListener="#{tramiteBean.registrarTramite()}"
+                                                  styleClass="btn btn-success pull-right"
+                                                  value="Registrar Trámite" />
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </section>
+        </ui:composition>
+    </body>
+</html>
+
+

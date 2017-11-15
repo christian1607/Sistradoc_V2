@@ -1,0 +1,27 @@
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                       http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+
+    <url-mapping id="tramite-registro">
+        <pattern value="/tramite/registro" />
+        <view-id value="/page/tramite/registro/registro-tramite.xhtml" />
+    </url-mapping>
+    
+    <url-mapping id="tramite-consulta">
+        <pattern value="/tramite/consulta" />
+        <view-id value="/page/tramite/consulta/consulta-tramite.xhtml" />
+    </url-mapping>
+    
+    <url-mapping id="tramite-evaluacion">
+        <pattern value="/tramite/evaluacion" />
+        <view-id value="/page/tramite/evaluacion/evaluacion-tramite.xhtml" />
+    </url-mapping>
+    
+    
+    <url-mapping id="reporte-estadistica">
+        <pattern value="/reporte/estadistica" />
+        <view-id value="/page/reportes/estadisticas/reporte-estadistica.xhtml" />
+    </url-mapping>
+
+</pretty-config>

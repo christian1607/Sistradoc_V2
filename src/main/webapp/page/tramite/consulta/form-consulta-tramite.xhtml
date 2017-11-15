@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:pretty="http://ocpsoft.com/prettyfaces">
+
+    <body>
+        <ui:composition>
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Tramite <small>Consulta de Trámites</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li class="active">Consulta Trámite</li>
+                </ol>
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <h:form  id="formsolicitud" enctype="multipart/form-data">
+                    <div class="box box-danger">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Consultar Trámites Registrados</h3>
+
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool"
+                                        data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-box-tool"
+                                        data-widget="remove">
+                                    <i class="fa fa-remove"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <p:growl id="msj" autoUpdate="true" life="5000"/>
+                            <div class="box-body">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="txt-remitente">Codigo Trámite</label>
+                                        <p:inputText id="txt-codigo-tramite"
+                                                     styleClass="form-control"
+                                                     placeholder="(Filtro por el codigo de Tramite)"
+                                                     value="#{consultaTramiteBean.fitroBusqueda.codTramite}"/>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txt-remitente">Remitente</label>
+                                        <p:inputText id="txt-remitente"
+                                                     styleClass="form-control"
+                                                     placeholder="(Filtro por el codigo de Tramite)"
+                                                     value="#{consultaTramiteBean.fitroBusqueda.nomRemitente}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txt-remitente">Estado Trámite</label>
+                                        <h:selectOneMenu value="#{consultaTramiteBean.fitroBusqueda.codEstado}"
+                                                         styleClass="form-control">
+                                            <f:selectItems value="#{consultaTramiteBean.listaTipoEstadosTramite}"
+                                                           var="estado"
+                                                           itemLabel="#{estado.nomCodificador}"
+                                                           itemValue="#{estado.codCodificador}"/>  
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="txt-destinatario">Destinatario</label>
+                                        <p:inputText id="txt-destinatario"
+                                                     value="#{consultaTramiteBean.fitroBusqueda.nomDestinatario}"
+                                                     placeholder="(Filtro por el codigo de Tramite)"
+                                                     styleClass="form-control" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="txt-destinatario">Desde</label>
+                                        <label for="txt-destinatario">Hasta</label><br/>
+                                        <p:calendar value="#{consultaTramiteBean.fitroBusqueda.fechaDesde}"
+
+                                                    showOn="button"/>
+
+                                        <p:calendar value="#{consultaTramiteBean.fitroBusqueda.fechaHasta}"
+
+                                                    showOn="button"/>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="box-footer">
+                                <p:commandButton  id="btn-buscar"
+                                                  update="tblResultadosTramite"
+                                                  icon="fa fa-search"
+                                                  actionListener="#{consultaTramiteBean.consultarTramites()}"
+                                                  styleClass="btn btn-success pull-right"
+                                                  value="Consutar Trámite(s)" />
+                            </div>
+
+
+                            <p:dataTable id="tblResultadosTramite" value="#{consultaTramiteBean.resultadosConsultaTramite}"
+                                         var="tramite" rowIndexVar="index"
+                                         class="table table-hover"
+                                         emptyMessage="(Lista vacia)">
+
+                                <p:column headerText="N° " width="5%">
+                                    <h:outputText value="#{index+1}"/>
+                                </p:column>
+                                <p:column headerText="Tramite " width="13%">
+                                    <h:outputText value="#{tramite.codTramite}"/>
+                                </p:column>
+                                <p:column headerText="Asunto " width="20%">
+                                    <h:outputText value="#{tramite.desAsunto}"/>
+                                </p:column>
+                                <p:column headerText="Destinatario" width="20%">
+                                    <h:outputText value="#{tramite.nomDestinatario}"/>
+                                </p:column>
+                                <p:column headerText="Remitente " width="20%">
+                                    <h:outputText value="#{tramite.nomRemitente}"/>
+                                </p:column>
+                                <p:column headerText="Estado " width="12%">
+                                    <h:outputText value="#{tramite.nomEstado}"/>
+                                </p:column>
+                                <p:column headerText="Fecha registro " width="10%">
+                                    <h:outputText value="#{tramite.fecRegistro}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column  width="10%">
+                                    
+                                    <p:button value="Ver" icon="fa fa-search"
+                                              outcome="pretty:tramite-evaluacion"
+                                              styleClass="btn btn-primary pull-center">
+                                        <f:param name="codigoTramite" value="#{tramite.codTramite}"/>
+                                        
+                                    </p:button>
+                                </p:column>
+
+
+
+                            </p:dataTable>
+
+                        </div>
+                    </div>
+                </h:form>
+            </section>
+        </ui:composition>
+    </body>
+</html>
+
+

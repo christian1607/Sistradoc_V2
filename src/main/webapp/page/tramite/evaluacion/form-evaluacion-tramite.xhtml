@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>
+        <ui:composition>
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Tramite <small>Evaluacion de Tramite</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li class="active">Evaluacion de Tramite registrado</li>
+                </ol>
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <h:form  id="formsolicitud" enctype="multipart/form-data">
+                    <div class="box box-danger">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Evaluación del trámite</h3>
+
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool"
+                                        data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-box-tool"
+                                        data-widget="remove">
+                                    <i class="fa fa-remove"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+
+                            <p:growl id="msj" autoUpdate="true" life="5000"/>
+                            <div class="box-body">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="txt-remitente">Codigo Trámite</label>
+                                        <p:inputText id="txt-codigo-tramite"
+                                                     styleClass="form-control"
+                                                     readonly="true"
+                                                     value="#{evaluacionTramiteBean.tramite.codTramite}"/>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txt-remitente">Remitente</label>
+                                        <p:inputText id="txt-remitente"
+                                                     styleClass="form-control"
+                                                     required="true"
+                                                     readonly="true"
+                                                     requiredMessage="Debe de ingresar el nombre del remitente."
+                                                     value="#{evaluacionTramiteBean.tramite.nomRemitente}"
+                                                     placeholder="Ingrese el nombre del remitente" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txt-remitente">Estado Trámite</label>
+                                        <p:inputText id="txt-estado-tramite"
+                                                     styleClass="form-control"
+                                                     required="true"
+                                                     readonly="true"
+                                                     requiredMessage="Debe de ingresar el nombre del remitente."
+                                                     value="#{evaluacionTramiteBean.tramite.nomEstado}"
+                                                     placeholder="Ingrese el nombre del remitente" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="txt-destinatario">Destinatario</label>
+                                        <p:inputText id="txt-destinatario"
+                                                     value="#{evaluacionTramiteBean.tramite.nomDestinatario}"
+                                                     required="true"
+                                                     readonly="true"
+                                                     requiredMessage="Debe de ingresar el nombre del destinatario."
+                                                     styleClass="form-control"
+                                                     placeholder="Ingrese nombre del destinatario" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txt-asunto">Asunto</label>
+                                        <p:inputText id="txt-asunto" 
+                                                     value="#{evaluacionTramiteBean.tramite.desAsunto}"
+                                                     required="true"
+                                                     readonly="true"
+                                                     requiredMessage="Debe de ingresar el asunto del trámite."
+                                                     styleClass="form-control"
+                                                     placeholder="Ingrese el asunto del trámite" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="box-header with-border">
+                            <h3 class="box-title"> Archivos adjuntados para el Trámite</h3>
+                        </div>
+
+                        <div class="box-body">
+                            <div class="col-md-10 col-md-offset-1">
+                                <p:dataTable id="tblResultados"
+                                             value="#{evaluacionTramiteBean.tramite.documentosAdjuntos}"
+                                             var="documento" rowIndexVar="index"
+                                             class="table table-hover"
+                                             emptyMessage="(No hay documentos adjuntos)">
+
+                                    <p:column headerText="N° " width="5%">
+                                        <h:outputText value="#{index+1}"/>
+                                    </p:column>
+                                    <p:column headerText="Nombre documento " width="20%">
+                                        <h:outputText value="#{documento.nomDocumento}"/>
+                                    </p:column>
+                                    <p:column headerText="Tipo documento " width="10%">
+                                        <h:outputText value="#{documento.nomTipoDocumento}"/>
+                                    </p:column>
+
+                                    <p:column  width="10%">
+                                        <p:commandButton value="Descargar" ajax="false"
+                                                         class="btn btn-danger"
+                                                         onclick="PrimeFaces.monitorDownload(start, stop);" 
+                                                         icon="fa fa-download"
+                                                         actionListener="#{evaluacionTramiteBean.descargarAdjunto(documento.idDocumento)}">
+                                            <p:fileDownload value="#{evaluacionTramiteBean.documento}" />
+                                        </p:commandButton>
+
+                                    </p:column>
+                                </p:dataTable>
+
+                            </div>
+
+                        </div>
+                        <div class="box-body">
+                            <div class="col-md-5 pull-right">
+                                <p:commandButton value="Aceptar"
+                                                 title="Aceptar Tramite"
+                                                 class="btn btn-success"
+                                                 update="@form"
+                                                 actionListener="#{evaluacionTramiteBean.aceptarTramite()}"
+                                                 icon="fa fa-check-square"/>
+                                <p:commandButton value="Rechazar"
+                                                 class="btn btn-danger"
+                                                 update="@form"
+                                                 global="false"
+                                                 title="Rechazar tramite, debe de especificar el motivo del rechazo."
+                                                 actionListener="#{evaluacionTramiteBean.rechazarTramite()}"
+                                                 icon="fa fa-exclamation-circle"/>
+                                <p:commandButton value="Observar"
+                                                 actionListener="#{evaluacionTramiteBean.rechazarTramite()}"
+                                                 icon="fa fa-check"/>
+
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </section>
+        </ui:composition>
+    </body>
+</html>
+
+

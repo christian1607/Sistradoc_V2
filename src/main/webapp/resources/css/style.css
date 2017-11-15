@@ -1,0 +1,9 @@
+.user-panel>.info{
+	position: inherit;	
+	left: 0px;
+}
+
+
+.ui-growl {
+    z-index:9999 !important;
+}
