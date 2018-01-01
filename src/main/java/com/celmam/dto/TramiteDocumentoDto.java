@@ -28,10 +28,11 @@ public class TramiteDocumentoDto implements Serializable {
     public TramiteDocumentoDto() {
     }
 
-    public TramiteDocumentoDto(String idDocumento, String codTramite, String codTipoDocumento) {
+    public TramiteDocumentoDto(String idDocumento, String codTramite, String codTipoDocumento, String nomDocumento) {
         this.idDocumento = idDocumento;
         this.codTramite = codTramite;
         this.codTipoDocumento = codTipoDocumento;
+        this.nomDocumento = nomDocumento;
     }
 
     public TramiteDocumentoDto(String idDocumento, String nomDocumento, String codTramite, String codTipoDocumento, String nomTipoDocumento) {

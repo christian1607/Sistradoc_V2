@@ -1,0 +1,86 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>    
+        <title>Tramite Documentario</title>
+        <f:facet name="first"> 
+            <meta charset="utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+        </f:facet>
+
+        <f:facet name="middle">  
+            <h:outputStylesheet  name="bower_components/bootstrap/dist/css/bootstrap.min.css"/> 
+            <h:outputStylesheet  name="bower_components/font-awesome/css/font-awesome.min.css"/> 
+            <h:outputStylesheet  name="bower_components/Ionicons/css/ionicons.min.css"/> 
+            <h:outputStylesheet  name="dist/css/AdminLTE.css"/> 
+            <h:outputStylesheet  name="dist/css/skins/_all-skins.min.css"/> 
+            <h:outputStylesheet  name="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"/> 
+
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic" />
+            <h:outputStylesheet  name="css/style.css"/>
+        </f:facet>
+
+
+    </h:head>
+    <h:body class="hold-transition skin-red-light sidebar-mini">
+        <h:form id="loginFormId" prependId="false">
+            <div class="login-box" >
+                <div class="login-logo">
+                    <a href="../../index2.html"><b>Admin</b>LTE</a>
+                </div>
+                <!-- /.login-logo -->
+                <div class="login-box-body">
+                    <p class="login-box-msg">Sign in to start your session</p>
+
+
+                    <div class="form-group has-feedback">
+                        <h:inputText id="username" required="true"
+                                     class="form-control"
+                                     requiredMessage="Debe de ingresar el usuario." />
+                        <h:messages for="username" />
+                    </div>
+                    <div class="form-group has-feedback">
+                        <h:inputSecret id="password" required="true"
+                                       class="form-control"
+                                       requiredMessage="Please enter password (otherwise you'll die!!)"
+                                       />
+                        <h:messages for="password" />
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <div class="checkbox icheck">
+                                <label>
+                                    <input type="checkbox"/> Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-xs-4">
+                            <h:commandButton id="btnLoginId" 
+                                             value="Login"
+                                             class="btn btn-primary btn-block btn-flat"
+                                             action="#{loginBean.doLogin()}"
+                                             styleClass="loginPanelBtn" />
+                        </div>
+                        <!-- /.col -->
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+
+
+        </h:form>
+
+    </h:body>
+
+
+
+</html>

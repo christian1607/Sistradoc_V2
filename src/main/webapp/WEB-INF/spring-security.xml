@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+    <!-- Enable security annotations usage -->
+
+<!--    <bean id="myAuthenticationDetailsSource"
+          class="com.celmam.security.MyAuthenticationDetailsSource">
+    </bean>
+
+    <bean id="myAuthenticationProvider"
+          class="com.celmam.security.MyAuthenticationProvider">
+    </bean>-->
+
+
+    <security:authentication-manager>
+        <!-- create a custom AuthenticationProvider class to tune the login 
+        process -->
+        <security:authentication-provider   >
+            <security:jdbc-user-service data-source-ref="dataSource"
+                               users-by-username-query=
+		    "select username,password, enabled from usuario where username=?"
+                               authorities-by-username-query=
+		    "select username, role from usuario_rol where username =?  "
+                                />
+            
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    <security:http use-expressions="true">
+        <security:intercept-url pattern="/security/login"
+                                access="permitAll" />
+      
+      
+        
+        <security:intercept-url pattern="/tramite/**"
+                                access="authenticated" />
+        
+        <security:intercept-url pattern="/reportes/**"
+                                access="authenticated" />
+        
+        <security:intercept-url pattern="/resources/**"
+                                access="permitAll" />
+        
+       
+        <!--                             authentication-details-source-ref="myAuthenticationDetailsSource"-->
+        <security:form-login login-page="/security/login"
+                             authentication-failure-url="/security/login"
+                             default-target-url="/page/tramite/consulta/consulta-tramite.xhtml"
+
+                             username-parameter="username"
+                             password-parameter="password" />
+        
+        <security:logout logout-success-url="/security/login"
+                         logout-url="/cerrar_session" 
+                         invalidate-session="true"
+                         delete-cookies="JSESSIONID"
+        />
+        
+        <!-- access denied page -->
+        <!--        <access-denied-handler error-page="/403" />-->
+        
+        
+    </security:http>
+
+</beans>

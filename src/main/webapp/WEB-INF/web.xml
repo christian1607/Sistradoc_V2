@@ -33,10 +33,40 @@
     </context-param>  
         
         
- 
         
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            /WEB-INF/spring-security.xml,
+            /WEB-INF/spring-database.xml
+        </param-value>
+    </context-param>
+        
+        
+    <!-- Enable Spring Filter: Spring Security works on the concept of Filters -->
+    <!-- Declare the Spring filter -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>
+            org.springframework.web.filter.DelegatingFilterProxy
+        </filter-class>
+    </filter>
+    <!-- Defines urls pattern on which the filter is applied -->
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>REQUEST</dispatcher><!-- mandatory to allow the managed bean to forward the request to the filter -->
+    </filter-mapping>
+ 
+   
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+    
+   
 </web-app>

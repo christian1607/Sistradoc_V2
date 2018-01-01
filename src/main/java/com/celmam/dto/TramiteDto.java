@@ -37,8 +37,6 @@ public class TramiteDto implements Serializable {
 
     private String numDocumento;
 
-    private String codTipoDocumento;
-
     private List<TramiteDocumentoDto> documentosAdjuntos;
 
     private DocumentoAdjuntoDto documentoAdjunto;
@@ -129,14 +127,7 @@ public class TramiteDto implements Serializable {
         this.numDocumento = numDocumento;
     }
 
-    public String getCodTipoDocumento() {
-        return codTipoDocumento;
-    }
-
-    public void setCodTipoDocumento(String codTipoDocumento) {
-        this.codTipoDocumento = codTipoDocumento;
-    }
-
+  
     public List<TramiteDocumentoDto> getDocumentosAdjuntos() {
         return documentosAdjuntos;
     }

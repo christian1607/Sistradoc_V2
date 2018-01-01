@@ -24,4 +24,10 @@
         <view-id value="/page/reportes/estadisticas/reporte-estadistica.xhtml" />
     </url-mapping>
 
+    <url-mapping id="security-login">
+        <pattern value="/security/login" />
+        <view-id value="/page/security/login/login.xhtml" />
+    </url-mapping>
+
+
 </pretty-config>

@@ -71,12 +71,16 @@ public class TramiteBean implements Serializable {
     public void registrarTramite() {
 
         try {
+            logger.info("[START] registrar tramite");
             tramiteService.registrarTramite(tramite);
 
             Messages.addGlobalInfo("Se registró tramite correctamente", "sss");
+            logger.info("[END] registrar tramite");
         } catch (TramiteServiceException ex) {
+            logger.info("[FAILED] registrar tramite");
             Messages.addGlobalError(ex.getMessage());
         } catch (Exception ex) {
+            logger.info("[ERROR] registrar tramite");
             logger.error("Se produjo un error al registrar tramite", ex);
             Messages.addGlobalFatal("Se produjo un error al registrar tramite");
         }
@@ -87,7 +91,7 @@ public class TramiteBean implements Serializable {
     public void subirArchivo(FileUploadEvent archivoAdjunto) {
 
         try {
-
+            logger.info("Subiendo archivo alfresco");
             File file = new File(archivoAdjunto.getFile().getFileName());
             InputStream input = archivoAdjunto.getFile().getInputstream();
 
@@ -96,11 +100,15 @@ public class TramiteBean implements Serializable {
                 fos.flush();
             }
 
-            if (Optional.ofNullable(tramite.getCodTipoDocumento()).isPresent()) {
+            if (Optional.ofNullable(tramite.getDocumentoAdjunto().getCodTipoDocumento()).isPresent()) {
 
                 Document documentoSubido = AlfrescoUtils.subirFile(file, Integer.parseInt(tramite.getDocumentoAdjunto().getCodTipoDocumento()));
-                tramite.getDocumentosAdjuntos().add(new TramiteDocumentoDto(documentoSubido.getId(), tramite.getCodTramite(), tramite.getCodTipoDocumento()));
+                tramite.getDocumentosAdjuntos().add(new TramiteDocumentoDto(documentoSubido.getId(), 
+                                                                            tramite.getCodTramite(),
+                                                                            tramite.getDocumentoAdjunto().getCodTipoDocumento(),
+                                                                            tramite.getDocumentoAdjunto().getNomDocumento() ));
                 Messages.addGlobalInfo("Archivo subido correctamente");
+                logger.info("Archivo subido correctamente");
             } else {
                 Messages.addGlobalWarn("No se seleccionó el tipo de documento correctamente");
             }

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -40,9 +39,9 @@
                 <!-- Logo -->
                 <a href="index2.html" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
-                    <span class="logo-mini"><b>S</b>SA</span>
+                    <span class="logo-mini"><b>S</b>CO</span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg"><b>SENASA</b></span>
+                    <span class="logo-lg"><b>COPEMI</b></span>
                 </a>
                 <!-- Header Navbar: style can be found in header.less -->
                 <nav class="navbar navbar-static-top">
@@ -104,7 +103,10 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">                                        
                                         <div class="pull-right">
-                                            <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                            <h:outputLink value="${request.contextPath}/cerrar_session"
+                                                          class="btn btn-info btn-flat">
+                                                Cerrar Sesión
+                                            </h:outputLink>
                                         </div>
                                     </li>
                                 </ul>
