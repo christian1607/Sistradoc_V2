@@ -1,9 +1,10 @@
-package com.celmam.service;
+package com.celmam.service.impl;
 
 import com.celmam.dao.MaestroCodificadorDao;
 import com.celmam.dto.MaestroCodificadorDto;
 import com.celmam.entity.MaestroCodificador;
 import com.celmam.exception.TramiteServiceException;
+import com.celmam.service.CodificadorService;
 import com.celmam.util.Mensajes;
 import com.celmam.util.TipoCodificador;
 import java.util.List;

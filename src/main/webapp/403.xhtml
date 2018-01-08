@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>	
+        <ui:composition template="layout.xhtml">
+            <ui:define name="content">
+
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        404 Error Page
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="#">Examples</a></li>
+                        <li class="active">404 error</li>
+                    </ol>
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <div class="error-page">
+                        <h2 class="headline text-yellow"> 404</h2>
+
+                        <div class="error-content">
+                            <h3><i class="fa fa-warning text-yellow"></i> Acceso no Autorizado!.</h3>
+
+                            <p>
+                                We could not find the page you were looking for.
+                                Meanwhile, you may <a href="../../index.html">return to dashboard</a> or try using the search form.
+                            </p>
+                        </div>
+                        <!-- /.error-content -->
+                    </div>
+                    <!-- /.error-page -->
+                </section>
+                <!-- /.content -->
+            </ui:define>
+        </ui:composition>	
+    </body>
+</html>

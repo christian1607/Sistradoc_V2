@@ -32,4 +32,11 @@ public class ServiceFactory {
 
     }
 
+    public static SecurityService getSecurityService() {
+
+        context = getApplicationContext();
+        return (SecurityService) context.getBean("SecurityService");
+
+    }
+
 }

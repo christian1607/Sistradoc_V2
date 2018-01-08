@@ -1,4 +1,4 @@
-package com.celmam.service;
+package com.celmam.service.impl;
 
 import com.celmam.dao.TramiteDao;
 import com.celmam.dto.MaestroCodificadorDto;
@@ -9,13 +9,14 @@ import com.celmam.entity.Tramite;
 import com.celmam.entity.TramiteDocumento;
 import com.celmam.entity.VwConsultaTramite;
 import com.celmam.exception.TramiteServiceException;
+import com.celmam.service.CodificadorService;
+import com.celmam.service.TramiteService;
 import com.celmam.util.Mensajes;
 import com.celmam.util.TipoCodificador;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,24 +46,26 @@ public class TramiteServiceImpl implements TramiteService {
 
         TramiteDto datosTramite;
         try {
+
             Tramite tramite = tramiteDao.obtenerTramiteByCodigoTramite(codTramite);
 
             if (Optional.ofNullable(tramite).isPresent()) {
                 datosTramite = new TramiteDto(tramite.getCodTramite(),
-                                            tramite.getNomRemitente(),
-                                            tramite.getNomDestinatario(), 
-                                            tramite.getDesComentario(),
-                                            tramite.getDesAsunto(),
-                                            tramite.getCodEstado(), 
-                                            tramite.getFecRegistro(),
-                                            fromEntityToDto(tramite.getDocumentos()), 
-                                            obtenerNombreEstado(tramite.getCodEstado()));
+                        tramite.getNomRemitente(),
+                        tramite.getNomDestinatario(),
+                        tramite.getDesComentario(),
+                        tramite.getDesAsunto(),
+                        tramite.getCodEstado(),
+                        tramite.getFecRegistro(),
+                        fromEntityToDto(tramite.getDocumentos()),
+                        obtenerNombreEstado(tramite.getCodEstado()));
                 return datosTramite;
             } else {
                 throw new TramiteServiceException(Mensajes.ERROR_OBTENER_CODIGO_TRAMITE);
             }
 
         } catch (Exception e) {
+            LOG.error(Mensajes.ERROR_OBTENER_CODIGO_TRAMITE, codTramite, e);
             throw new TramiteServiceException(Mensajes.ERROR_OBTENER_CODIGO_TRAMITE);
 
         }

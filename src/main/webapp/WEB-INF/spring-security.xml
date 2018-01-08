@@ -10,28 +10,33 @@
 
     <!-- Enable security annotations usage -->
 
-<!--    <bean id="myAuthenticationDetailsSource"
+    <bean id="myAuthenticationDetailsSource"
           class="com.celmam.security.MyAuthenticationDetailsSource">
     </bean>
 
     <bean id="myAuthenticationProvider"
           class="com.celmam.security.MyAuthenticationProvider">
-    </bean>-->
-
-
+    </bean> 
+    
     <security:authentication-manager>
         <!-- create a custom AuthenticationProvider class to tune the login 
-        process -->
+            process -->
+        <security:authentication-provider  ref="myAuthenticationProvider" />
+    </security:authentication-manager>
+
+<!--    <security:authentication-manager>
+         create a custom AuthenticationProvider class to tune the login 
+        process 
         <security:authentication-provider   >
             <security:jdbc-user-service data-source-ref="dataSource"
-                               users-by-username-query=
+                                        users-by-username-query=
 		    "select username,password, enabled from usuario where username=?"
-                               authorities-by-username-query=
+                                        authorities-by-username-query=
 		    "select username, role from usuario_rol where username =?  "
-                                />
+            />
             
         </security:authentication-provider>
-    </security:authentication-manager>
+    </security:authentication-manager>-->
 
     <security:http use-expressions="true">
         <security:intercept-url pattern="/security/login"
@@ -42,10 +47,13 @@
         <security:intercept-url pattern="/tramite/**"
                                 access="authenticated" />
         
-        <security:intercept-url pattern="/reportes/**"
-                                access="authenticated" />
+        <security:intercept-url pattern="/reporte/**"
+                                access="hasRole('ADMIN')" />
         
         <security:intercept-url pattern="/resources/**"
+                                access="permitAll" />
+        
+         <security:intercept-url pattern="/403**"
                                 access="permitAll" />
         
        
@@ -53,7 +61,7 @@
         <security:form-login login-page="/security/login"
                              authentication-failure-url="/security/login"
                              default-target-url="/page/tramite/consulta/consulta-tramite.xhtml"
-
+                             authentication-details-source-ref="myAuthenticationDetailsSource"
                              username-parameter="username"
                              password-parameter="password" />
         
@@ -63,8 +71,13 @@
                          delete-cookies="JSESSIONID"
         />
         
+        <security:session-management>
+            <security:concurrency-control max-sessions="1"/>
+                
+        </security:session-management>
+        
         <!-- access denied page -->
-        <!--        <access-denied-handler error-page="/403" />-->
+        <security:access-denied-handler error-page="/403.xhtml"/>
         
         
     </security:http>

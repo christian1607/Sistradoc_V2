@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
-		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-         version="3.1">
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee    http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <display-name>SISTRADOC</display-name>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
@@ -27,13 +24,10 @@
         <param-name>primefaces.UPLOADER</param-name>
         <param-value>auto</param-value>
     </context-param>
-    <context-param>  
-        <param-name>primefaces.THEME</param-name>  
-        <param-value>omega</param-value>  
-    </context-param>  
-        
-        
-        
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>omega</param-value>
+    </context-param>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -44,8 +38,6 @@
             /WEB-INF/spring-database.xml
         </param-value>
     </context-param>
-        
-        
     <!-- Enable Spring Filter: Spring Security works on the concept of Filters -->
     <!-- Declare the Spring filter -->
     <filter>
@@ -59,14 +51,12 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
         <dispatcher>FORWARD</dispatcher>
-        <dispatcher>REQUEST</dispatcher><!-- mandatory to allow the managed bean to forward the request to the filter -->
+        <dispatcher>REQUEST</dispatcher>
+        <!-- mandatory to allow the managed bean to forward the request to the filter -->
     </filter-mapping>
- 
-   
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
-    
    
 </web-app>
