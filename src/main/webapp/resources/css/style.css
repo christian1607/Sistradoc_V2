@@ -7,3 +7,9 @@
 .ui-growl {
     z-index:9999 !important;
 }
+
+.login-page{
+     
+    background-image: url("../../resources/img/background_login.jpg");
+    background-size:cover;
+}

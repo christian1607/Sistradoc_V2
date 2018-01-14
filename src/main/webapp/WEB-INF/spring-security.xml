@@ -42,8 +42,6 @@
         <security:intercept-url pattern="/security/login"
                                 access="permitAll" />
       
-      
-        
         <security:intercept-url pattern="/tramite/**"
                                 access="authenticated" />
         

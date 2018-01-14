@@ -6,37 +6,40 @@
     <body>	
         <ui:composition template="layout.xhtml">
             <ui:define name="content">
+                <h:form>
 
-                <!-- Content Header (Page header) -->
-                <section class="content-header">
-                    <h1>
-                        404 Error Page
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Examples</a></li>
-                        <li class="active">404 error</li>
-                    </ol>
-                </section>
+                    <!-- Content Header (Page header) -->
+                    <section class="content-header">
+                        <h1>
+                            Error
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                            <li><a href="#">Error</a></li>
+                            <li class="active">No autorizado</li>
+                        </ol>
+                    </section>
 
-                <!-- Main content -->
-                <section class="content">
-                    <div class="error-page">
-                        <h2 class="headline text-yellow"> 404</h2>
+                    <!-- Main content -->
+                    <section class="content">
+                        <div class="error-page">
+                            <h2 class="headline text-yellow"> 403</h2>
 
-                        <div class="error-content">
-                            <h3><i class="fa fa-warning text-yellow"></i> Acceso no Autorizado!.</h3>
+                            <div class="error-content">
+                                <h3><i class="fa fa-warning text-yellow"></i> Acceso no Autorizado!.</h3>
 
-                            <p>
-                                We could not find the page you were looking for.
-                                Meanwhile, you may <a href="../../index.html">return to dashboard</a> or try using the search form.
-                            </p>
+                                <p>
+                                    No tiene permiso de acceso para la página a la que intenta ingresar.
+
+                                </p>
+                            </div>
+                            <!-- /.error-content -->
                         </div>
-                        <!-- /.error-content -->
-                    </div>
-                    <!-- /.error-page -->
-                </section>
-                <!-- /.content -->
+                        <!-- /.error-page -->
+                    </section>
+                    <!-- /.content -->
+                </h:form>
+
             </ui:define>
         </ui:composition>	
     </body>

@@ -46,8 +46,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 
         if (null != authentication.getPrincipal() && null != authentication.getCredentials()) {
             UsuarioDto usuario = securityService.login(authentication.getPrincipal().toString(), authentication.getCredentials().toString());
-            System.out.println("Selected method: " + ((MyAuthenticationDetails) authentication.getDetails()).getMethod());
-
+      
             if (usuario != null) {
                 res = createSuccessAuthentication(authentication);
 
