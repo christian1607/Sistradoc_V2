@@ -56,6 +56,20 @@
                     </webResources>
                 </configuration>
             </plugin>
+          
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>1.1.0.Alpha5</version>
+                <configuration>
+                    <hostname>192.168.1.32</hostname>
+                    <port>10090</port>
+                    <username>admin</username>
+                    <password>admin</password>
+                    <name>sistradoc.war</name>
+                </configuration>
+            </plugin>
+          
         </plugins>
     </build>
 
@@ -330,7 +344,9 @@
         </dependency>
         
     </dependencies>
-
+    
+  
+  
    
 
 </project>
